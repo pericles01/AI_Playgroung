@@ -68,4 +68,3 @@ dependencies:
     - pygments==2.13.0
     - pypiwin32==223
     - pywin32==304
-prefix: C:\Users\junio\anaconda3\envs\Vapp
