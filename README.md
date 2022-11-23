@@ -5,7 +5,7 @@ A user-friendly GUI to easy test any pytorch multi-class model with a sample ima
 
 - Clone the git project with 
   ```bash 
-   git clone
+   git clone https://github.com/pericles01/AI_Playgroung.git
   ```
 - Run the shell code below to install the project dependencies
   ```bash
@@ -23,3 +23,4 @@ A user-friendly GUI to easy test any pytorch multi-class model with a sample ima
 # Test
 A test with a simple resnet18 torch model on a vehicle image (in ressource forlder).
 
+![Test image](./ressource/test.png)
