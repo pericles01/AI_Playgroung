@@ -11,6 +11,11 @@ A user-friendly GUI to easy test any pytorch multi-class model with a sample ima
   ```bash
    conda env -f environment.yml
   ```
+- Activate the virtual environment
+    ```bash
+    conda activate Vapp
+    ```
+    Can be deactivted after the use with ``conda deactivate``
 # Run
 - for windows
     ```bash
