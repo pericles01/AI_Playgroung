@@ -18,9 +18,6 @@
             size_hint_y: .35
             #height: dp(300)
             GridLayout:
-                # size_hint_max_x: dp(100)
-                # size_hint_min_x: dp(70)
-                #size_hint_y: None
                 size_hint_x: .6            
                 #height: dp(100)
                 pos_hint: {"center_x": .5, "center_y": .5}
@@ -63,10 +60,6 @@
                 Button:
                     text: 'Predict'
                     on_release: root.predict()
-            
-            # Label:
-            #     id: selected_img
-            #     text: " "
         GridLayout:
             cols: 3
             size_hint_y: .5
