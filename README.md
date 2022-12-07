@@ -10,7 +10,7 @@ A user-friendly GUI to easy test any pytorch multi-class model with a sample ima
   ```
 - Run the shell code below to install the project dependencies
   ```bash
-   conda env create -f environment.yml
+   conda env create -f ./environment.yml
   ```
 - Activate the virtual environment
     ```bash

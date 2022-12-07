@@ -1,0 +1,49 @@
+#:kivy 1.0.9
+
+<CoverImage@CoverBehavior+Image>:
+    reference_size: self.texture_size
+
+<VBoxLayout@BoxLayout>:
+    orientation: "vertical"
+
+<ValueLabel@Label>:
+    font_size: dp(30)
+    bold: True
+    color: 1 , 0, 0, 1 #utils.get_color_from_hex(backgroundColor)
+
+<TitleLabel@Label>:
+    padding: dp(10), dp(10)
+    font_size: dp(25)
+    bold: True
+    size_hint_y: 0.2
+    
+<BoxLayoutWithActionBar>:
+    orientation: "vertical"
+    ActionBar:
+        ActionView:
+            ActionPrevious:
+                title: root.mtitle
+                on_release: app.manager.pop()
+                #app_icon: "images/lab_logo.png"
+                app_icon_height: "28dp"
+                app_icon_width: "28dp"
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            path: os.getcwd()
+            filters: ["*.jpg", "*.jpeg", "*.svg", "*.png"] if root.file_type =="image_file" else ["*.h5", "*.pth"]
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
