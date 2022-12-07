@@ -10,7 +10,7 @@
         VBoxLayout:
             canvas.before:
                 Color: 
-                    rgb: utils.get_color_from_hex(backgroundColor)
+                    rgba: .5, 0, 0, .6 #rgb: utils.get_color_from_hex(backgroundColor)
                 Rectangle:
                     pos: self.pos
                     size: self.size
@@ -29,12 +29,9 @@
                 rows: 2
                 Button:
                     text: 'Load AI Model'
-                    #on_press: root.reset()
                     on_release: root.show_load_file()
                 Button:
-                    #spacing: dp(50)
                     text: 'Load Image'
-                    #on_press: root.reset()
                     on_release: root.show_load_image()
                 
             Label:
@@ -48,17 +45,12 @@
                 padding: dp(5), dp(5)
             BoxLayout:
                 padding: dp(10), dp(10)
-                # size_hint_y: None
-                # height: dp(100)
                 size_hint_x: .25 
                 pos_hint: {"center_x": .5, "center_y": .5}
                 Button:
                     text: 'Predict'
                     on_release: root.predict()
-            
-            # Label:
-            #     id: selected_img
-            #     text: " "
+
         GridLayout:
             cols: 3
             size_hint_y: .5

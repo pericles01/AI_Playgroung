@@ -21,11 +21,50 @@
             mtitle: "Binary Test"
             BinaryClassRoot:
 
-<PrincipalMenu@BoxLayout>:
-    orientation: "vertical"
-    Button:
-        text:"Multi-class test"
-        on_press: app.manager.push("Multiclass")
-    Button:
-        text:"Binary test"
-        on_press: app.manager.push("Binary")
+<PrincipalMenu@FloatLayout>:
+    CoverImage:
+        canvas:
+            Color: 
+                #rgb: utils.get_random_color()
+                rgba: .6, 0, 0, .5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        source: "./ressource/images/app/galaxy.jpg"
+        # allow_strech: True
+    VBoxLayout:
+        spacing: dp(10)
+        BoxLayout:
+            size_hint_y: .6
+            Label:
+                text: "Welcome to the AI Playground"
+                size: self.texture_size
+                pos_hint_x: .5
+                font_size: dp(30)
+                bold: True
+        VBoxLayout:
+            spacing: dp(30)
+            #size_hint_y: .7
+            pos_hint: {"center_x": .5, "center_y": .5}
+            Button:
+                text:"Multi-classification test"
+                font_size: dp(20)
+                #bold: True
+                on_press: app.manager.push("Multiclass")
+                size_hint: None, None
+                height: dp(80)
+                width: dp(240)
+                pos_hint: {"center_x": .5}
+
+            Button:
+                text:"Binary classification test"
+                font_size: dp(20)
+                #background_color: 0, .6, 0, .7
+                on_press: app.manager.push("Binary")
+                size_hint: None, None
+                height: dp(80)
+                width: dp(240)
+                pos_hint: {"center_x": .5}
+            BoxLayout:
+                size_hint_y: .5
+            
