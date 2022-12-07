@@ -43,7 +43,7 @@ class TorchModel:
         #print("successfully fetched image & labels")
     
     def get_class0(self, class0:str):
-        self.class0 = class0
+        self.class0 = class0 # manage the binary classification test
     
     def get_class1(self, class1:str):
         self.class1 = class1
