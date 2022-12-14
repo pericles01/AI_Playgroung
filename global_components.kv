@@ -36,7 +36,7 @@
         FileChooserListView:
             id: filechooser
             path: os.getcwd()
-            filters: ["*.jpg", "*.jpeg", "*.svg", "*.png"] if root.file_type =="image_file" else ["*.h5", "*.pth"]
+            filters: root.apply_filters()
         BoxLayout:
             size_hint_y: None
             height: 30

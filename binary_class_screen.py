@@ -4,7 +4,7 @@ from kivy.properties import *
 from kivy.lang import Builder
 import os
 
-from torchModel import TorchModel
+from torchModel import BinaryClassModel
 from global_components import LoadDialog
 
 Builder.load_file("binary_class_screen.kv")
@@ -15,7 +15,7 @@ class BinaryClassRoot(FloatLayout):
     model = ObjectProperty(None)
     predict_class = StringProperty()
     predict_accuracy = NumericProperty()
-    model = TorchModel()
+    model = BinaryClassModel()
     class0 = StringProperty()
     class1 = StringProperty()
 
@@ -43,7 +43,6 @@ class BinaryClassRoot(FloatLayout):
         print(f"! Successfully fetched file: {self.load_file_path}")
         #print(f"! file choser: {filename}")
         
-
         self.dismiss_popup()
 
     def load_image(self, path, filename):
@@ -69,11 +68,7 @@ class BinaryClassRoot(FloatLayout):
     def predict(self):
         self.predict_accuracy, self.predict_class = self.model.predict()
         self.ids.class_label.text = str(self.predict_class)
-        self.ids.accuracy_label.text = str(self.predict_accuracy) + "%"
-        print(f"predicted class: {self.ids.class_label.text}")
-        print(f"prediction accuracy: {self.ids.accuracy_label.text}")
-    
-    def reset(self):
-        self.load_file_path = " "
-        self.load_image_path = " "
-        print("! reset")
+        if self.predict_accuracy:
+            self.ids.accuracy_label.text = str(round(self.predict_accuracy, 2)) + "%"
+        # print(f"predicted class: {self.ids.class_label.text}")
+        # print(f"prediction accuracy: {self.ids.accuracy_label.text}")
