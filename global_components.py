@@ -12,7 +12,21 @@ class BoxLayoutWithActionBar(BoxLayout):
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
-    file_type = OptionProperty("None", options=["model_file", "image_file", "None"])
+    file_type = OptionProperty("None", options=["model_file", "image_file", "labels_file", "None"])
+    
+    def apply_filters(self)-> list:
+        """
+        apply a specified file filtering for filechooser depending on the filetype
+        see global_components.kv
+        """
+        if self.file_type =="image_file":
+            return ["*.jpg", "*.jpeg", "*.svg", "*.png"]
+        elif self.file_type =="model_file":
+            return ["*.pth"] # add "*.h5" ?
+        elif self.file_type =="labels_file":
+            return ["*.txt"]
+        else:
+            return []
 
 class NavigationScreenManager(ScreenManager):
     

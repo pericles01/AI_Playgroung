@@ -22,7 +22,7 @@
                 #height: dp(100)
                 pos_hint: {"center_x": .5, "center_y": .5}
                 padding: dp(10) , dp(10)
-                spacing: dp(5)
+                spacing: dp(7)
                 cols: 2
                 rows: 2
                 Button:
@@ -44,13 +44,13 @@
                     text: "Enter class 1"
             Label:
                 id: selected_file
-                text: "Selected model: "
+                text: " "
                 size_hint: None, None
                 size: self.texture_size
                 pos_hint: {"center_x": .5, "center_y": .5}
                 font_size: dp(15)
                 #bold: True 
-                padding: dp(5), dp(5)
+                #padding: dp(5), dp(5)
             BoxLayout:
                 padding: dp(10), dp(10)
                 # size_hint_y: None
