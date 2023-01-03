@@ -40,8 +40,9 @@ class BinaryClassRoot(FloatLayout):
         self.ids.selected_file.text = "Selected model: " + os.path.basename(self.load_file_path)
         
         self.model.setup_model(self.load_file_path)
-        print(f"! Successfully fetched file: {self.load_file_path}")
-        #print(f"! file choser: {filename}")
+        #print(f"! Successfully fetched file: {self.load_file_path}")
+        print(f"! class 0: {self.ids.class0.text}")
+        print(f"! class 1: {self.ids.class1.text}")
         
         self.dismiss_popup()
 
@@ -52,18 +53,16 @@ class BinaryClassRoot(FloatLayout):
         self.ids.image.reload()
         #feed the input image to the model
         self.model.setup_img(self.load_image_path)
-        print(f"! Successfully fetched image: {self.load_image_path}")
-        print(f"! new source image: {self.ids.image.source}")
 
         self.dismiss_popup()
     
-    def on_text1(self):
-        self.class0 = self.ids.class0.selection_text
-        self.model.get_class0(self.class0)
+    # def on_text1(self):
+    #     self.class0 = self.ids.class0.text
+    #     self.model.get_class0(self.class0)
 
-    def on_text2(self):
-        self.class1 = self.ids.class1.selection_text
-        self.model.get_class1(self.class1)
+    # def on_text2(self):
+    #     self.class1 = self.ids.class1.text
+    #     self.model.get_class1(self.class1)
     
     def predict(self):
         self.predict_accuracy, self.predict_class = self.model.predict()

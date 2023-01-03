@@ -113,13 +113,14 @@ class BinaryClassModel(TorchModel):
 
     def predict(self) -> tuple | str:
 
-        if self.class0 and self.class1:
+        if "Enter class 0".lower() not in self.class0.lower() and "Enter class 1".lower() not in self.class1.lower():
             self.categories = [str(self.class0), str(self.class1)]
-
+        else:
+            self.categories = ["class 0", "class 1"]
         # move the input and model to GPU for speed if available
-        if torch.cuda.is_available():
-            self.input_batch = self.input_batch.to('cuda')
-            self.model.to('cuda')
+        # if torch.cuda.is_available():
+        #     self.input_batch = self.input_batch.to('cuda')
+        #     self.model.to('cuda')
 
         with torch.no_grad():
             output = self.model(self.input_batch)
