@@ -1,5 +1,5 @@
 # AI Playgroung GUI
-A user-friendly GUI to easy test any pytorch multi-class model with a sample image.
+A user-friendly GUI to easy test any pytorch binary or multi-class model with a sample image.
 
 # Installation
 
