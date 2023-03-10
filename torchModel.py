@@ -24,8 +24,6 @@ class TorchModel:
             self.model.to(self.device)
         except FileNotFoundError as e:
             print(f"File {path} not found!", file=sys.stderr)
-        
-        #print("successfully fetched torch model")
 
     def setup_img(self, img_path:str) -> None:
         input_image = Image.open(img_path)
@@ -38,7 +36,6 @@ class TorchModel:
         input_tensor = preprocess(input_image)
         self.input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
         self.input_batch.to(self.device)
-        #print("successfully fetched image")
 
     def predict(self) -> tuple | str:
         pass
@@ -46,11 +43,6 @@ class TorchModel:
 class MultiClassModel(TorchModel):
     def __init__(self) -> None:
         super().__init__()
-    
-    #def setup_model(self, path:str) -> None:
-
-    
-    #def setup_img(self, img_path:str) -> None:
 
     def setupLabels(self, path:str)->None:
         with open(path, "r") as f:
@@ -75,19 +67,10 @@ class MultiClassModel(TorchModel):
                 with open("./ressource/imagenet_classes.txt", "r") as f:
                     self.categories = [s.strip() for s in f.readlines()]
 
-        # move the input and model to GPU for speed if available
-        # if torch.cuda.is_available():
-        #     self.input_batch = self.input_batch.to('cuda')
-        #     self.model.to('cuda')
-
         with torch.no_grad():
             output = self.model(self.input_batch)
-        # Tensor of shape 1000, with confidence scores over Imagenet's 1000 classes
-        # print(output[0])
         # The output has unnormalized scores. To get probabilities, you can run a softmax on it.
         probabilities = torch.nn.functional.softmax(output[0], dim=0)
-        #print(probabilities)
-        
         # Show top class for the image
         _, top_id = torch.max(output, 1)
         
@@ -105,33 +88,24 @@ class BinaryClassModel(TorchModel):
         self.class0 = None
         self.class1 = None
     
-    def get_class0(self, class0:str):
-        self.class0 = class0 # manage the binary classification test --> create a model for each classification task
-    
-    def get_class1(self, class1:str):
+    def setup_labels(self, class0:str, class1:str):
+        self.class0 = class0 
         self.class1 = class1
-
-    def predict(self) -> tuple | str:
-
         if "Enter class 0".lower() not in self.class0.lower() and "Enter class 1".lower() not in self.class1.lower():
             self.categories = [str(self.class0), str(self.class1)]
         else:
             self.categories = ["class 0", "class 1"]
-        # move the input and model to GPU for speed if available
-        # if torch.cuda.is_available():
-        #     self.input_batch = self.input_batch.to('cuda')
-        #     self.model.to('cuda')
+        print(f"{self.categories}")
+    
+    def predict(self) -> tuple | str:
 
         with torch.no_grad():
             output = self.model(self.input_batch)
-        # print(output)
         # get the decision between 0 1. if output < 0.5 -> 0 else -> 1
-        decision = round(torch.nn.functional.sigmoid(output))
-        #print(decision)
-        
+        decision = torch.round(torch.sigmoid(output)).squeeze()
         # Show top class for the image
         _, top_id = torch.max(output, 1)
-        self.detected_class = self.categories[decision]
+        self.detected_class = self.categories[top_id[0]] if top_id[0]< 1 else self.categories[1]
         try:
             self.accuray = round(decision[top_id[0]].item(), 2)
             self.accuray *= 100
