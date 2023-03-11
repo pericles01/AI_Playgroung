@@ -101,14 +101,11 @@ class BinaryClassModel(TorchModel):
 
         with torch.no_grad():
             output = self.model(self.input_batch)
-        # get the decision between 0 1. if output < 0.5 -> 0 else -> 1
-        decision = torch.round(torch.sigmoid(output)).squeeze()
-        # Show top class for the image
-        _, top_id = torch.max(output, 1)
-        self.detected_class = self.categories[top_id[0]] if top_id[0]< 1 else self.categories[1]
+        # get the decision between 0 & 1. if output < 0.5 -> 0 else -> 1
+        class_id = torch.round(output).squeeze().item()
+        self.detected_class = self.categories[class_id] if class_id < 1 else self.categories[1]
         try:
-            self.accuray = round(decision[top_id[0]].item(), 2)
-            self.accuray *= 100
+            self.accuray = output.item() * 100
             return self.accuray, self.detected_class
         except Exception:
             return 0, self.detected_class
