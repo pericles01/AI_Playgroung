@@ -95,15 +95,14 @@ class BinaryClassModel(TorchModel):
             self.categories = [str(self.class0), str(self.class1)]
         else:
             self.categories = ["class 0", "class 1"]
-        print(f"{self.categories}")
     
     def predict(self) -> tuple | str:
 
         with torch.no_grad():
-            output = self.model(self.input_batch)
+            output = torch.sigmoid(self.model(self.input_batch))
         # get the decision between 0 & 1. if output < 0.5 -> 0 else -> 1
-        class_id = torch.round(output).squeeze().item()
-        self.detected_class = self.categories[class_id] if class_id < 1 else self.categories[1]
+        class_id = int(torch.round(output).squeeze().item())
+        self.detected_class = self.categories[class_id] if class_id < 1 else self.categories[1] # to prevent out of range index
         try:
             self.accuray = output.item() * 100
             return self.accuray, self.detected_class
